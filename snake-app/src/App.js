@@ -5,6 +5,74 @@ import Food from './Component/Food/Food'
 
 class App extends Component {
 
+
+componentDidMount() {
+  setInterval(() => {
+
+    if(this.state.TOUCH==='RIGTH'){
+      let y;
+      let x;
+      for (let i=0; i<this.state.positionSnake.length;i++) {
+        y = this.state.positionSnake[i][0]
+        x = this.state.positionSnake[i][1]
+      }
+      this.state.positionSnake.shift()
+      this.setState({
+        positionSnake : [...this.state.positionSnake,
+        [y,x+2]]
+      })
+    }
+
+    if(this.state.TOUCH==='UP'){
+      let x;
+      let y;
+      for (let i=0; i<this.state.positionSnake.length;i++) {
+        y = this.state.positionSnake[i][0]
+        x = this.state.positionSnake[i][1]
+      }
+      this.state.positionSnake.shift()
+      this.setState({
+        positionSnake : [...this.state.positionSnake,
+        [y-12,x]]
+      })
+    }
+
+    if(this.state.TOUCH==='LEFT'){
+      let x;
+      let y;
+      for (let i=0; i<this.state.positionSnake.length;i++) {
+        y = this.state.positionSnake[i][0]
+        x = this.state.positionSnake[i][1]
+      }
+      this.state.positionSnake.shift()
+      this.setState({
+        positionSnake : [...this.state.positionSnake,
+        [y,x-2]]
+      })
+    }
+
+    if(this.state.TOUCH==='DOWN'){
+      let x;
+      let y;
+          for (let i=0; i<this.state.positionSnake.length;i++) {
+            y = this.state.positionSnake[i][0]
+            x = this.state.positionSnake[i][1]
+          }
+      this.state.positionSnake.shift()
+      this.setState({
+        positionSnake : [...this.state.positionSnake,
+        [y+12,x]]
+      }) 
+    }
+    this.setState({
+      test : this.state.test + 5
+    })
+
+    console.log('5s se sont écoulé',this.state.test,this.state.TOUCH)
+  }, 120);
+}
+
+
   // fx when you press up 
   pressUp = () =>{
     console.log(this.state.TOUCH)
@@ -12,20 +80,7 @@ class App extends Component {
       console.log('entrain de se diriger vers le bas')
       return
     }
-    let x;
-    let y;
-    let i;
-    let test;
-        for (i=0; i<this.state.positionSnake.length;i++) {
-          y = this.state.positionSnake[i][0]
-          x = this.state.positionSnake[i][1]
-        }
 
-      this.state.positionSnake.shift()
-      this.setState({
-      positionSnake : [...this.state.positionSnake,
-      [y-12,x]]
-    })
     this.setState({
       TOUCH : 'UP'
     })
@@ -39,17 +94,6 @@ class App extends Component {
       console.log('entrain de se diriger vers la droite')
       return
     }
-    let x;
-    let y;
-        for (let i=0; i<this.state.positionSnake.length;i++) {
-          y = this.state.positionSnake[i][0]
-          x = this.state.positionSnake[i][1]
-        }
-    this.state.positionSnake.shift()
-    this.setState({
-      positionSnake : [...this.state.positionSnake,
-      [y,x-2]]
-    })
     this.setState({
       TOUCH : 'LEFT'
     })
@@ -63,17 +107,6 @@ class App extends Component {
       console.log('entrain de se diriger vers le haut')
       return
     }
-    let x;
-    let y;
-        for (let i=0; i<this.state.positionSnake.length;i++) {
-          y = this.state.positionSnake[i][0]
-          x = this.state.positionSnake[i][1]
-        }
-    this.state.positionSnake.shift()
-    this.setState({
-      positionSnake : [...this.state.positionSnake,
-      [y+12,x]]
-    })
     this.setState({
       TOUCH : 'DOWN'
     })
@@ -87,17 +120,6 @@ class App extends Component {
       console.log('entrain de se diriger vers le gauche')
       return
     }
-    let x;
-    let y;
-        for (let i=0; i<this.state.positionSnake.length;i++) {
-          y = this.state.positionSnake[i][0]
-          x = this.state.positionSnake[i][1]
-        }
-    this.state.positionSnake.shift()
-    this.setState({
-      positionSnake : [...this.state.positionSnake,
-      [y,x+2]]
-    })
     this.setState({
       TOUCH : 'RIGTH'
     })
@@ -114,7 +136,8 @@ class App extends Component {
   }
 
   state ={
-    TOUCH : '',
+    test : 0,
+    TOUCH : 'RIGTH',
     foodPosition : this.generateFoodPosition(),
     positionSnake : [
       [0,0],
