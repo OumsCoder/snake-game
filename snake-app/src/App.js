@@ -5,10 +5,19 @@ import Food from './Component/Food/Food'
 
 class App extends Component {
 
+  generateFoodPosition(){
+    let min = 1;
+    let max = 97;
+    let x = Math.floor((Math.random()*(max-min+1)+min)/2)*2;
+    let y = Math.floor((Math.random()*(max-min+1)+min)/2)*2;
+  return [x,y]
+  }
+
 componentDidMount() {
   setInterval(() => {
 
     if(this.state.TOUCH==='RIGTH'){
+      
       let y;
       let x;
       let i;
@@ -16,6 +25,16 @@ componentDidMount() {
         y = this.state.positionSnake[i][0]
         x = this.state.positionSnake[i][1]
       }
+      // console.log(this.state.foodPosition,[y,x])
+      if(this.state.foodPosition[1]===x && this.state.foodPosition[0]===y){
+        this.setState({
+          foodPosition : this.generateFoodPosition(),
+          positionSnake : [...this.state.positionSnake,
+            [y,x+2]]  
+        })
+        console.log('the snake eat food')
+      }
+
       if(x===98){
         this.setState({
           win : false
@@ -30,12 +49,22 @@ componentDidMount() {
     }
 
     if(this.state.TOUCH==='UP'){
+     // console.log(this.state.foodPosition)
       let x;
       let y;
       for (let i=0; i<this.state.positionSnake.length;i++) {
         y = this.state.positionSnake[i][0]
         x = this.state.positionSnake[i][1]
       }
+      if(this.state.foodPosition[1]===x && this.state.foodPosition[0]===y){
+        this.setState({
+          foodPosition : this.generateFoodPosition(),
+          positionSnake : [...this.state.positionSnake,
+            [y-2,x]]
+        })
+        console.log('the snake eat food')
+      }
+      
       if(y===0){
         this.setState({
           win : false
@@ -45,7 +74,7 @@ componentDidMount() {
       this.state.positionSnake.shift()
       this.setState({
         positionSnake : [...this.state.positionSnake,
-        [y-12,x]]
+        [y-2,x]]
       })
     }
 
@@ -56,6 +85,15 @@ componentDidMount() {
         y = this.state.positionSnake[i][0]
         x = this.state.positionSnake[i][1]
       }
+      if(this.state.foodPosition[1]===x && this.state.foodPosition[0]===y){
+        this.setState({
+          foodPosition : this.generateFoodPosition(),
+          positionSnake : [...this.state.positionSnake,
+            [y,x-2]]
+        })
+        console.log('the snake eat food')
+      }
+
       if(x===0){
         this.setState({
           win : false
@@ -76,6 +114,15 @@ componentDidMount() {
             y = this.state.positionSnake[i][0]
             x = this.state.positionSnake[i][1]
           }
+          if(this.state.foodPosition[1]===x && this.state.foodPosition[0]===y){
+            this.setState({
+              foodPosition : this.generateFoodPosition(),
+              positionSnake : [...this.state.positionSnake,
+                [y+2,x]]
+            })
+            console.log('the snake eat food')
+          }
+
           if(y===492){
             this.setState({
               win : false
@@ -85,7 +132,7 @@ componentDidMount() {
       this.state.positionSnake.shift()
       this.setState({
         positionSnake : [...this.state.positionSnake,
-        [y+12,x]]
+        [y+2,x]]
       }) 
     }
     this.setState({
@@ -147,15 +194,6 @@ componentDidMount() {
     console.log(this.state.positionSnake)
   } 
   
-  generateFoodPosition(){
-  let min = 1;
-  let max = 97;
-  let x = Math.floor((Math.random()*(max-min+1)+min)/2)*2;
-  let y = Math.floor((Math.random()*(max-min+1)+min)/2)*2;
-  
-  return [x,y]
-  }
-
   state ={
     win : true,
     test : 0,
