@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.Game-container {
+  position: relative;
+  top: 30px;
+  left: 400px;
+  border: 1px solid black;
+  height: 500px;
+  width: 600px;
+}
