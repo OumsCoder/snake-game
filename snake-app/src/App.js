@@ -5,16 +5,22 @@ import Food from './Component/Food/Food'
 
 class App extends Component {
 
-
 componentDidMount() {
   setInterval(() => {
 
     if(this.state.TOUCH==='RIGTH'){
       let y;
       let x;
-      for (let i=0; i<this.state.positionSnake.length;i++) {
+      let i;
+      for (i=0; i<this.state.positionSnake.length;i++) {
         y = this.state.positionSnake[i][0]
         x = this.state.positionSnake[i][1]
+      }
+      if(x===98){
+        this.setState({
+          win : false
+        })
+        console.log('perdu')
       }
       this.state.positionSnake.shift()
       this.setState({
@@ -30,6 +36,12 @@ componentDidMount() {
         y = this.state.positionSnake[i][0]
         x = this.state.positionSnake[i][1]
       }
+      if(y===0){
+        this.setState({
+          win : false
+        })
+        console.log('perdu')
+      }
       this.state.positionSnake.shift()
       this.setState({
         positionSnake : [...this.state.positionSnake,
@@ -43,6 +55,12 @@ componentDidMount() {
       for (let i=0; i<this.state.positionSnake.length;i++) {
         y = this.state.positionSnake[i][0]
         x = this.state.positionSnake[i][1]
+      }
+      if(x===0){
+        this.setState({
+          win : false
+        })
+        console.log('perdu')
       }
       this.state.positionSnake.shift()
       this.setState({
@@ -58,6 +76,12 @@ componentDidMount() {
             y = this.state.positionSnake[i][0]
             x = this.state.positionSnake[i][1]
           }
+          if(y===492){
+            this.setState({
+              win : false
+            })
+            console.log('perdu')
+          }
       this.state.positionSnake.shift()
       this.setState({
         positionSnake : [...this.state.positionSnake,
@@ -69,7 +93,6 @@ componentDidMount() {
     })
   }, 120);
 }
-
 
   // fx when you press up 
   pressUp = () =>{
@@ -134,6 +157,7 @@ componentDidMount() {
   }
 
   state ={
+    win : true,
     test : 0,
     TOUCH : 'RIGTH',
     foodPosition : this.generateFoodPosition(),
@@ -161,12 +185,22 @@ componentDidMount() {
       }
     }
 
-    return (
+    const displayGame = this.state.win ? 
+    (
       <div className="Game-container">
         <Snake position={this.state.positionSnake} /> 
         <Food  position={this.state.foodPosition} />
       </div>
-    );
+    ) :
+    (
+      <div className="Game-container">
+      <p>Perdu</p>
+      </div>
+    )
+
+    return (
+      displayGame
+    )
   }
 }
 
