@@ -67,8 +67,6 @@ componentDidMount() {
     this.setState({
       test : this.state.test + 5
     })
-
-    console.log('5s se sont écoulé',this.state.test,this.state.TOUCH)
   }, 120);
 }
 
