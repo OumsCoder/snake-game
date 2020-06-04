@@ -20,8 +20,7 @@ componentDidMount() {
       
       let y;
       let x;
-      let i;
-      for (i=0; i<this.state.positionSnake.length;i++) {
+      for (let i=0; i<this.state.positionSnake.length;i++) {
         y = this.state.positionSnake[i][0]
         x = this.state.positionSnake[i][1]
       }
@@ -46,6 +45,13 @@ componentDidMount() {
         positionSnake : [...this.state.positionSnake,
         [y,x+2]]
       })
+
+      for (let i=0;i<this.state.positionSnake.length;i++) {
+       // console.log(this.state.positionSnake[i])
+        if([y,x+2]===this.state.positionSnake[i]){
+          console.log('the snake touch he body')
+        }
+     }
     }
 
     if(this.state.TOUCH==='UP'){
@@ -56,6 +62,7 @@ componentDidMount() {
         y = this.state.positionSnake[i][0]
         x = this.state.positionSnake[i][1]
       }
+
       if(this.state.foodPosition[1]===x && this.state.foodPosition[0]===y){
         this.setState({
           foodPosition : this.generateFoodPosition(),
@@ -76,6 +83,12 @@ componentDidMount() {
         positionSnake : [...this.state.positionSnake,
         [y-2,x]]
       })
+
+      for (let i=0;i<this.state.positionSnake.length;i++) {
+          if([y-2,x]===this.state.positionSnake[i]){
+            console.log('the snake touch he body')
+          }
+      }
     }
 
     if(this.state.TOUCH==='LEFT'){
@@ -105,6 +118,12 @@ componentDidMount() {
         positionSnake : [...this.state.positionSnake,
         [y,x-2]]
       })
+
+      for (let i=0;i<this.state.positionSnake.length;i++) {
+        if([y,x-2]===this.state.positionSnake[i]){
+          console.log('the snake touch he body')
+        }
+    }
     }
 
     if(this.state.TOUCH==='DOWN'){
@@ -133,12 +152,18 @@ componentDidMount() {
       this.setState({
         positionSnake : [...this.state.positionSnake,
         [y+2,x]]
-      }) 
+      })
+      
+      for (let i=0;i<this.state.positionSnake.length;i++) {
+        if([y+2,x]===this.state.positionSnake[i]){
+          console.log('the snake touch he body')
+        }
+     }
     }
     this.setState({
       test : this.state.test + 5
     })
-  }, 120);
+  }, 150);
 }
 
   // fx when you press up 
@@ -152,7 +177,6 @@ componentDidMount() {
     this.setState({
       TOUCH : 'UP'
     })
-     console.log(this.state.positionSnake)
   } 
 
   // fx when you press left 
@@ -165,7 +189,6 @@ componentDidMount() {
     this.setState({
       TOUCH : 'LEFT'
     })
-    console.log(this.state.positionSnake)
   } 
 
   // fx when you press down
@@ -178,7 +201,6 @@ componentDidMount() {
     this.setState({
       TOUCH : 'DOWN'
     })
-    console.log(this.state.positionSnake)
   } 
 
   // fx when you press rigth 
@@ -191,7 +213,6 @@ componentDidMount() {
     this.setState({
       TOUCH : 'RIGTH'
     })
-    console.log(this.state.positionSnake)
   } 
   
   state ={
