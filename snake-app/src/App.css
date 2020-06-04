@@ -45,3 +45,11 @@
   height: 500px;
   width: 600px;
 }
+
+.lose{
+    text-align: center;
+    position: relative;
+    color: white;
+    background-color: black;
+    top: 40%;
+}

@@ -17,78 +17,55 @@ componentDidMount() {
   setInterval(() => {
 
     if(this.state.TOUCH==='RIGTH'){
-      
       let y;
       let x;
       for (let i=0; i<this.state.positionSnake.length;i++) {
         y = this.state.positionSnake[i][0]
         x = this.state.positionSnake[i][1]
       }
-      // console.log(this.state.foodPosition,[y,x])
       if(this.state.foodPosition[1]===x && this.state.foodPosition[0]===y){
         this.setState({
           foodPosition : this.generateFoodPosition(),
           positionSnake : [...this.state.positionSnake,
             [y,x+2]]  
         })
-        console.log('the snake eat food')
       }
-
       if(x===98){
         this.setState({
           win : false
         })
-        console.log('perdu')
       }
       this.state.positionSnake.shift()
       this.setState({
         positionSnake : [...this.state.positionSnake,
         [y,x+2]]
       })
-
-      for (let i=0;i<this.state.positionSnake.length;i++) {
-       // console.log(this.state.positionSnake[i])
-        if([y,x+2]===this.state.positionSnake[i]){
-          console.log('the snake touch he body')
-        }
-     }
     }
 
     if(this.state.TOUCH==='UP'){
-     // console.log(this.state.foodPosition)
       let x;
       let y;
       for (let i=0; i<this.state.positionSnake.length;i++) {
         y = this.state.positionSnake[i][0]
         x = this.state.positionSnake[i][1]
       }
-
       if(this.state.foodPosition[1]===x && this.state.foodPosition[0]===y){
         this.setState({
           foodPosition : this.generateFoodPosition(),
           positionSnake : [...this.state.positionSnake,
             [y-2,x]]
         })
-        console.log('the snake eat food')
       }
-      
       if(y===0){
         this.setState({
           win : false
         })
-        console.log('perdu')
       }
       this.state.positionSnake.shift()
       this.setState({
         positionSnake : [...this.state.positionSnake,
         [y-2,x]]
       })
-
-      for (let i=0;i<this.state.positionSnake.length;i++) {
-          if([y-2,x]===this.state.positionSnake[i]){
-            console.log('the snake touch he body')
-          }
-      }
     }
 
     if(this.state.TOUCH==='LEFT'){
@@ -104,26 +81,17 @@ componentDidMount() {
           positionSnake : [...this.state.positionSnake,
             [y,x-2]]
         })
-        console.log('the snake eat food')
       }
-
       if(x===0){
         this.setState({
           win : false
         })
-        console.log('perdu')
       }
       this.state.positionSnake.shift()
       this.setState({
         positionSnake : [...this.state.positionSnake,
         [y,x-2]]
       })
-
-      for (let i=0;i<this.state.positionSnake.length;i++) {
-        if([y,x-2]===this.state.positionSnake[i]){
-          console.log('the snake touch he body')
-        }
-    }
     }
 
     if(this.state.TOUCH==='DOWN'){
@@ -139,38 +107,24 @@ componentDidMount() {
               positionSnake : [...this.state.positionSnake,
                 [y+2,x]]
             })
-            console.log('the snake eat food')
           }
-
-          if(y===492){
+          if(y===96){
             this.setState({
               win : false
             })
-            console.log('perdu')
           }
       this.state.positionSnake.shift()
       this.setState({
         positionSnake : [...this.state.positionSnake,
         [y+2,x]]
       })
-      
-      for (let i=0;i<this.state.positionSnake.length;i++) {
-        if([y+2,x]===this.state.positionSnake[i]){
-          console.log('the snake touch he body')
-        }
-     }
     }
-    this.setState({
-      test : this.state.test + 5
-    })
   }, 150);
 }
 
   // fx when you press up 
   pressUp = () =>{
-    console.log(this.state.TOUCH)
     if(this.state.TOUCH==='DOWN'){
-      console.log('entrain de se diriger vers le bas')
       return
     }
 
@@ -181,11 +135,10 @@ componentDidMount() {
 
   // fx when you press left 
   pressLeft = () =>{
-    console.log(this.state.TOUCH)
     if(this.state.TOUCH==='RIGTH'){
-      console.log('entrain de se diriger vers la droite')
       return
     }
+
     this.setState({
       TOUCH : 'LEFT'
     })
@@ -193,11 +146,10 @@ componentDidMount() {
 
   // fx when you press down
   pressDown = () =>{
-    console.log(this.state.TOUCH)
     if(this.state.TOUCH==='UP'){
-      console.log('entrain de se diriger vers le haut')
       return
     }
+
     this.setState({
       TOUCH : 'DOWN'
     })
@@ -205,11 +157,10 @@ componentDidMount() {
 
   // fx when you press rigth 
   pressRigth = () =>{
-    console.log(this.state.TOUCH)
     if(this.state.TOUCH==='LEFT'){
-      console.log('entrain de se diriger vers le gauche')
       return
     }
+
     this.setState({
       TOUCH : 'RIGTH'
     })
@@ -217,7 +168,6 @@ componentDidMount() {
   
   state ={
     win : true,
-    test : 0,
     TOUCH : 'RIGTH',
     foodPosition : this.generateFoodPosition(),
     positionSnake : [
@@ -253,7 +203,7 @@ componentDidMount() {
     ) :
     (
       <div className="Game-container">
-      <p>Perdu</p>
+      <p className="lose">Oooops , you lose</p>
       </div>
     )
 
